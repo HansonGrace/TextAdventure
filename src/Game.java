@@ -17,6 +17,7 @@ public class Game {
 	JLabel titleLabel;
 	JButton startButton;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 65);
+	Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 30 );
 	
 	public static void main(String[] args) {
 		
@@ -38,7 +39,7 @@ public class Game {
 		window.setLayout(null);
 	
 		
-		
+		//create titlePanel and set restrictions
 		titlePanel = new JPanel();
 		con = window.getContentPane();
 		//set bounds and color for starting screen title
@@ -54,14 +55,15 @@ public class Game {
 		
 		//create start button
 		startPanel = new JPanel();
-		startPanel.setBounds(300, 400, 200, 100);
-		startPanel.setBackground(Color.gray);
+		startPanel.setBounds(300, 400, 150, 60);
+		startPanel.setBackground(Color.black);
 		con.add(startPanel);
 		startButton = new JButton("START");
 		startButton.setBackground(Color.black);
 		startButton.setForeground(Color.white);
 		con.add(startButton);
 		startPanel.add(startButton);
+		startButton.setFont(startButtonFont);
 		
 		//make window appear on screen
 		window.setVisible(true);
