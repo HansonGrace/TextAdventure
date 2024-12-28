@@ -1,17 +1,22 @@
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Game {
 
-	//imports 
+	//variables
 	JFrame window;
 	Container con;
 	JPanel titlePanel;
+	JPanel startPanel;
 	JLabel titleLabel;
+	JButton startButton;
+	Font titleFont = new Font("Times New Roman", Font.PLAIN, 65);
 	
 	public static void main(String[] args) {
 		
@@ -31,20 +36,35 @@ public class Game {
 		window.getContentPane().setBackground(Color.black);
 		//disable default layout to have a customzied layout
 		window.setLayout(null);
-		//make window appear on screen
-		window.setVisible(true);
+	
 		
 		
 		titlePanel = new JPanel();
 		con = window.getContentPane();
 		//set bounds and color for starting screen title
-		titlePanel.setBounds(100, 100, 600, 150);
-		titlePanel.setBackground(Color.gray);
+		titlePanel.setBounds(100, 100, 600, 100);
+		titlePanel.setBackground(Color.black);
+		
 		//container to add text to
 		titleLabel = new JLabel("TEXT ADVENTURE");
 		con.add(titlePanel);
 		titleLabel.setForeground(Color.white);
 		titlePanel.add(titleLabel);
+		titleLabel.setFont(titleFont);
+		
+		//create start button
+		startPanel = new JPanel();
+		startPanel.setBounds(300, 400, 200, 100);
+		startPanel.setBackground(Color.gray);
+		con.add(startPanel);
+		startButton = new JButton("START");
+		startButton.setBackground(Color.black);
+		startButton.setForeground(Color.white);
+		con.add(startButton);
+		startPanel.add(startButton);
+		
+		//make window appear on screen
+		window.setVisible(true);
 	}
 
 }
