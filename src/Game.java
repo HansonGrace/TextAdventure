@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Container;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Game {
@@ -10,6 +11,7 @@ public class Game {
 	JFrame window;
 	Container con;
 	JPanel titlePanel;
+	JLabel titleLabel;
 	
 	public static void main(String[] args) {
 		
@@ -37,9 +39,12 @@ public class Game {
 		con = window.getContentPane();
 		//set bounds and color for starting screen title
 		titlePanel.setBounds(100, 100, 600, 150);
-		titlePanel.setBackground(Color.blue);
+		titlePanel.setBackground(Color.gray);
 		//container to add text to
+		titleLabel = new JLabel("TEXT ADVENTURE");
 		con.add(titlePanel);
+		titleLabel.setForeground(Color.white);
+		titlePanel.add(titleLabel);
 	}
 
 }
