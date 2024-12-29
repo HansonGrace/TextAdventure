@@ -1,11 +1,14 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class Game {
 
@@ -13,11 +16,12 @@ public class Game {
 	JFrame window;
 	Container con;
 	JPanel titlePanel;
-	JPanel startPanel;
+	JPanel startPanel, mainTextPanel;
 	JLabel titleLabel;
 	JButton startButton;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 65);
 	Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 30 );
+	JTextArea mainTextArea;
 	
 	public static void main(String[] args) {
 		
@@ -67,6 +71,34 @@ public class Game {
 		
 		//make window appear on screen
 		window.setVisible(true);
+	}
+	
+	//method to create game screen
+	public void createGameScreen() {
+		mainTextPanel = new JPanel();
+		mainTextPanel.setBounds(100, 100, 600, 250);
+		mainTextPanel.setBackground(Color.blue);
+		con.add(mainTextPanel);
+		
+		mainTextArea = new JTextArea();
+		mainTextArea.setBounds(100, 100, 600, 250);
+		mainTextArea.setBackground(Color.black);
+		mainTextArea.setForeground(Color.white);
+		mainTextArea.setFont(startButtonFont);
+		//if text is too long
+		mainTextArea.setLineWrap(true);
+		mainTextPanel.add(mainTextArea);
+		
+		
+	}
+	
+	public class titleScreenHandler implements ActionListener{
+		
+		public void actionPerformed(ActionEvent event) {
+			
+			
+			
+		}
 	}
 
 }
