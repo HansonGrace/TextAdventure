@@ -23,6 +23,8 @@ public class Game {
 	Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 30 );
 	JTextArea mainTextArea;
 	
+	titleScreenHandler tsHandler = new titleScreenHandler();
+	
 	public static void main(String[] args) {
 		
 		new Game();
@@ -62,12 +64,14 @@ public class Game {
 		startPanel.setBounds(300, 400, 150, 60);
 		startPanel.setBackground(Color.black);
 		con.add(startPanel);
+		
 		startButton = new JButton("START");
 		startButton.setBackground(Color.black);
 		startButton.setForeground(Color.white);
 		con.add(startButton);
 		startPanel.add(startButton);
 		startButton.setFont(startButtonFont);
+		startButton.addActionListener(tsHandler);
 		
 		//make window appear on screen
 		window.setVisible(true);
@@ -75,6 +79,9 @@ public class Game {
 	
 	//method to create game screen
 	public void createGameScreen() {
+		
+		titlePanel.setVisible(false);
+		startPanel.setVisible(false);
 		mainTextPanel = new JPanel();
 		mainTextPanel.setBounds(100, 100, 600, 250);
 		mainTextPanel.setBackground(Color.blue);
@@ -95,6 +102,8 @@ public class Game {
 	public class titleScreenHandler implements ActionListener{
 		
 		public void actionPerformed(ActionEvent event) {
+			
+			createGameScreen();
 			
 			
 			
