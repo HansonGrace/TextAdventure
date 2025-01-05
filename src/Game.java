@@ -106,25 +106,25 @@ public class Game {
 		
 		choice1 = new JButton("Choice 1");
 		choice1.setBackground(Color.black);
-		choice1.setForeground(Color.white);
+		choice1.setForeground(Color.gray);
 		choice1.setFont(startButtonFont);
 		choiceButtonPanel.add(choice1);
 		
 		choice2 = new JButton("Choice 2");
 		choice2.setBackground(Color.black);
-		choice2.setForeground(Color.white);
+		choice2.setForeground(Color.gray);
 		choice2.setFont(startButtonFont);
 		choiceButtonPanel.add(choice2);
 		
 		choice3 = new JButton("Choice 3");
 		choice3.setBackground(Color.black);
-		choice3.setForeground(Color.white);
+		choice3.setForeground(Color.gray);
 		choice3.setFont(startButtonFont);
 		choiceButtonPanel.add(choice3);
 		
 		choice4 = new JButton("Choice 4");
 		choice4.setBackground(Color.black);
-		choice4.setForeground(Color.white);
+		choice4.setForeground(Color.gray);
 		choice4.setFont(startButtonFont);
 		choiceButtonPanel.add(choice4);
 		
