@@ -15,15 +15,15 @@ public class gameStartScreen extends JPanel {
 
         // Set text color and font
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Serif", Font.BOLD, 36));
+        g.setFont(new Font("Serif", Font.BOLD, 48)); // Increased from 36 to 48
 
-        // Center the text
+        // Center the text horizontally
         String title = "Hollow Wilds";
         int stringWidth = g.getFontMetrics().stringWidth(title);
         int stringHeight = g.getFontMetrics().getAscent();
 
         int x = (getWidth() - stringWidth) / 2;
-        int y = (getHeight() + stringHeight) / 2;
+        int y = (getHeight() / 3);  // Roughly 1/3 from top
 
         g.drawString(title, x, y);
     }
