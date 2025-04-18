@@ -1,30 +1,46 @@
-import javax.swing.JPanel;
-import java.awt.Graphics;
-import java.awt.Color;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class gameStartScreen extends JPanel {
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public gameStartScreen(JFrame frame) {
+        setLayout(new BorderLayout());
+        setBackground(Color.BLACK);
 
-        // Fill background black
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        // Title
+        JLabel titleLabel = new JLabel("Hollow Wilds");
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Serif", Font.BOLD, 48));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(80, 0, 0, 0)); // Top padding
 
-        // Set text color and font
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Serif", Font.BOLD, 48)); // Increased from 36 to 48
+        // START Button
+        JButton startButton = new JButton("START");
+        startButton.setFont(new Font("SansSerif", Font.BOLD, 24));
+        startButton.setFocusPainted(false);
+        startButton.setBackground(Color.BLACK);
+        startButton.setForeground(Color.WHITE);
+        startButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
+        startButton.setPreferredSize(new Dimension(200, 50));
 
-        // Center the text horizontally
-        String title = "Hollow Wilds";
-        int stringWidth = g.getFontMetrics().stringWidth(title);
-        int stringHeight = g.getFontMetrics().getAscent();
+        // Center button in panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 80, 0)); // space below title
+        buttonPanel.add(startButton);
 
-        int x = (getWidth() - stringWidth) / 2;
-        int y = (getHeight() / 3);  // Roughly 1/3 from top
+        // Add to layout
+        add(titleLabel, BorderLayout.NORTH);
+        add(buttonPanel, BorderLayout.SOUTH);
 
-        g.drawString(title, x, y);
+        // Button action
+        startButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose(); // close title screen
+                willMooreVillage.launch(); // open level 1
+            }
+        });
     }
 }
