@@ -1,6 +1,6 @@
 import javax.swing.JFrame;
 
-public class textAdventureWindow {
+public class Main{
     public static void main(String[] args) {
         JFrame frame = new JFrame("Hollow Wilds");
         frame.setSize(800, 600); // or any default size you want
