@@ -35,11 +35,13 @@ public class gameStartScreen extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Button action
+        // Button action - switch to WillMooreVillage in same window
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                frame.dispose(); // close title screen
-                willMooreVillage.launch(); // open level 1
+                frame.getContentPane().removeAll(); // clear current screen
+                frame.add(new willMooreVillage());  // add village screen
+                frame.revalidate(); // refresh layout
+                frame.repaint();    // repaint updated UI
             }
         });
     }

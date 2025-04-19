@@ -1,24 +1,50 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class willMooreVillage {
+public class willMooreVillage extends JPanel {
+    private JTextArea textArea;
+    private String message = "You awaken in the quiet town of WillMoore...";
+    private int index = 0;
 
-    public static void launch() {
-        JFrame frame = new JFrame("WillMoore Village - Level 1");
-        frame.setSize(600, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public willMooreVillage() {
+        setLayout(new BorderLayout());
+        setBackground(Color.BLACK);
 
-        JTextArea area = new JTextArea();
-        area.setText("You awaken in the quiet town of WillMoore...");
-        area.setFont(new Font("Serif", Font.PLAIN, 18));
-        area.setWrapStyleWord(true);
-        area.setLineWrap(true);
-        area.setEditable(false);
-        area.setBackground(Color.BLACK);
-        area.setForeground(Color.GREEN);
-        area.setMargin(new Insets(20, 20, 20, 20));
+        // Text area styled as a thought box
+        textArea = new JTextArea();
+        textArea.setFont(new Font("Serif", Font.PLAIN, 22)); // Slightly bigger
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        textArea.setBackground(new Color(0, 0, 0, 180));
+        textArea.setForeground(Color.WHITE);
+        textArea.setMargin(new Insets(15, 15, 15, 15));
+        textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
 
-        frame.add(area);
-        frame.setVisible(true);
+        // Just a little bit higher than before (was 50px bottom margin before)
+        JPanel textPanel = new JPanel(new BorderLayout());
+        textPanel.setBackground(Color.BLACK);
+        textPanel.setBorder(BorderFactory.createEmptyBorder(0, 50, 100, 50)); // small upward shift
+        textPanel.add(textArea, BorderLayout.SOUTH);
+
+        add(textPanel, BorderLayout.SOUTH);
+
+        startTypingEffect();
+    }
+
+    private void startTypingEffect() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if (index < message.length()) {
+                    textArea.append(Character.toString(message.charAt(index)));
+                    index++;
+                } else {
+                    timer.cancel();
+                }
+            }
+        }, 0, 50);
     }
 }
