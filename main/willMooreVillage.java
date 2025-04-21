@@ -4,18 +4,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.event.*;
 
-/** 
+/**
  * 
  * @Author Grace Hanson
- * @brief This class creates the WillMooreVillage screen for the game "Hollow Wilds".
- * It includes a text area for dialogue, an inventory button, and an inventory panel.
- * The text area displays a typing effect for the story intro, and the inventory panel shows items and their amounts.
+ * @brief This class creates the WillMooreVillage screen for the game "Hollow
+ *        Wilds".
+ *        It includes a text area for dialogue, an inventory button, and an
+ *        inventory panel.
+ *        The text area displays a typing effect for the story intro, and the
+ *        inventory panel shows items and their amounts.
  */
 public class willMooreVillage extends JPanel {
     private JTextArea textArea;
-    private String message = "You awaken in the quiet town of WillMoore...";
+    private String[] messages = {
+            "You awaken in the quiet town of WillMoore...",
+            "The annual Autumn Harvest Festival is happening."
+    };
+    private int currentMessageIndex = 0;
     private int index = 0;
+    private boolean isTyping = false;
 
     private JPanel inventoryPanel;
 
@@ -23,7 +32,7 @@ public class willMooreVillage extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
 
-        // === TOP PANEL with LARGER INVENTORY BUTTON ===
+        // top panel with inventory button
         JButton inventoryButton = new JButton("INVENTORY");
         inventoryButton.setFont(new Font("SansSerif", Font.BOLD, 18)); // Increased font size
         inventoryButton.setFocusPainted(false);
@@ -36,7 +45,7 @@ public class willMooreVillage extends JPanel {
         topPanel.setBackground(Color.BLACK);
         topPanel.add(inventoryButton);
 
-        // === TEXT BOX (dialogue-style at bottom) ===
+        // text box for dialogue
         textArea = new JTextArea();
         textArea.setFont(new Font("Serif", Font.PLAIN, 22));
         textArea.setWrapStyleWord(true);
@@ -55,31 +64,45 @@ public class willMooreVillage extends JPanel {
         add(topPanel, BorderLayout.NORTH);
         add(textPanel, BorderLayout.SOUTH);
 
-        // === INVENTORY PANEL (hidden by default) ===
+        // iventory panel
         inventoryPanel = createInventoryPanel();
         inventoryPanel.setVisible(false);
         add(inventoryPanel, BorderLayout.EAST); // adds it on the side but it looks like a popup
 
-        // === Button Logic ===
         inventoryButton.addActionListener(e -> inventoryPanel.setVisible(true));
 
-        startTypingEffect();
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                // If not clicking the inventory button, progress the text
+                if (!inventoryPanel.isVisible()) {
+                    if (!isTyping) {
+                        // If the current message has finished, clear text and show next message
+                        if (currentMessageIndex < messages.length) {
+                            clearTextAndStartTyping();
+                        }
+                    }
+                }
+            }
+        });
+
+        // Start typing the first message
+        startTypingEffect(messages[currentMessageIndex]);
     }
 
-    // === Inventory Panel Setup ===
+    // inventory layout/setup
     private JPanel createInventoryPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setPreferredSize(new Dimension(250, 150));
         panel.setBackground(Color.DARK_GRAY);
         panel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true));
 
-        // === Table setup ===
-        String[] columnNames = {"Item", "Amount"};
+        // table setup
+        String[] columnNames = { "Item", "Amount" };
         Object[][] data = {
-            {"COINS", 0},
-            {"ARROWS", 0},
-            {"SWORDS", 0},
-            {"FOODS", 0}
+                { "COINS", 0 },
+                { "ARROWS", 0 },
+                { "SWORDS", 0 },
+                { "FOODS", 0 }
         };
 
         JTable table = new JTable(data, columnNames);
@@ -88,7 +111,6 @@ public class willMooreVillage extends JPanel {
         table.setRowHeight(24);
         JScrollPane scrollPane = new JScrollPane(table);
 
-        // === X Button ===
         JButton closeButton = new JButton("X");
         closeButton.setFocusPainted(false);
         closeButton.setFont(new Font("SansSerif", Font.BOLD, 12));
@@ -108,8 +130,9 @@ public class willMooreVillage extends JPanel {
         return panel;
     }
 
-    // === Typing animation for story intro ===
-    private void startTypingEffect() {
+    private void startTypingEffect(String message) {
+        // Mark that we are typing a message
+        isTyping = true;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
@@ -117,9 +140,20 @@ public class willMooreVillage extends JPanel {
                     textArea.append(Character.toString(message.charAt(index)));
                     index++;
                 } else {
+                    // Move to next message after this one finishes typing
+                    isTyping = false; // Allow the next click to trigger the next message
                     timer.cancel();
                 }
             }
         }, 0, 50);
+    }
+
+    private void clearTextAndStartTyping() {
+        textArea.setText(""); // Clear the text area
+        index = 0; // Reset index for the typing effect
+        currentMessageIndex++; // Move to the next message
+        if (currentMessageIndex < messages.length) {
+            startTypingEffect(messages[currentMessageIndex]);
+        }
     }
 }
